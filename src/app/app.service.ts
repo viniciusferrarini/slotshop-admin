@@ -15,15 +15,15 @@ export class AppService {
  
   obtainAccessToken(loginData){
     let params = new URLSearchParams();
-    params.append('email',loginData.email);
+    params.append('username',loginData.email);
     params.append('password',loginData.password);    
-    params.append('grant_type','token');
+    params.append('grant_type','password');
     params.append('client_id','app');
 
     let headers = new Headers({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Basic '+btoa("app:app")});
     let options = new RequestOptions({ headers: headers });
     console.log(params.toString());
-     this._http.post('http://localhost:9999/auth/token', params.toString(), options)
+     this._http.post('http://localhost:9999/auth/oauth/token', params.toString(), options)
     .map(res => res.json())
     .subscribe(
       data => this.saveToken(data),
